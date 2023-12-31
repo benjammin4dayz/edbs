@@ -41,9 +41,8 @@ jobs:
 
       - name: Finalize
         run: |
-          cd artifact
-          cd linux && tar -cvzf edbs-linux.tar.gz "./Elite Dangerous Binding Switcher"
-          cd artifact
+          cd artifact/linux && tar -cvzf edbs-linux.tar.gz "./Elite Dangerous Binding Switcher"
+          cd ..
           cd win && zip -r edbs-win.zip "./Elite Dangerous Binding Switcher"
 
       - name: Create Automatic Release
