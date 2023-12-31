@@ -52,5 +52,5 @@ jobs:
           prerelease: false
           automatic_release_tag: "latest"
           files: |
-            artifact/edbs-linux.tar.gz
-            artifact/edbs-win.zip
+            artifact/linux/edbs-linux.tar.gz
+            artifact/win/edbs-win.zip
