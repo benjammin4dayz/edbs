@@ -41,35 +41,11 @@ jobs:
           tar -cvzf edbs-linux.tar.gz "linux/Elite Dangerous Binding Switcher"
           zip -r edbs-win.zip "win/Elite Dangerous Binding Switcher"
 
-      - name: Create release
-        id: create_release
-        uses: comnoco/create-release-action@v2.0.5
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create Automatic Release (maybe?)
+        uses: marvinpinto/action-automatic-releases@latest
         with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          draft: false
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
           prerelease: false
-
-      - name: Upload Linux build
-        id: edbs_linux
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./artifact/edbs-linux.tar.gz
-          asset_name: edbs-linux.tar.gz
-          asset_content_type: application/zip
-
-      - name: Upload Windows build
-        id: edbs_win
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./artifact/edbs-win.zip
-          asset_name: edbs-win.zip
-          asset_content_type: application/zip
+          files: |
+            artifact/edbs-linux.tar.gz
+            artifact/edbs-win.zip
