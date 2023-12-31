@@ -1,0 +1,52 @@
+name: NodeJS CI/CD
+
+on:
+  push:
+    branches: 
+      - "main"
+  workflow_dispatch:
+    
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run build
+
+      - name: Post-build
+        run: |
+          mkdir -p "artifact/linux/Elite Dangerous Binding Switcher/bindings"
+          mkdir -p "artifact/win/Elite Dangerous Binding Switcher/bindings"
+          chmod +x ./dist/edbs-linux
+          mv ./dist/edbs-linux "./artifact/linux/Elite Dangerous Binding Switcher/edbs"
+          mv ./dist/edbs-win.exe "./artifact/win/Elite Dangerous Binding Switcher/edbs.exe"
+          cp ./README.md "./artifact/linux/Elite Dangerous Binding Switcher/README.md"
+          cp ./README.md "./artifact/win/Elite Dangerous Binding Switcher/README.md"
+
+      - name: Finalize
+        run: |
+          cd artifact/linux && tar -cvzf edbs-linux.tar.gz "./Elite Dangerous Binding Switcher"
+          cd ..
+          cd win && zip -r edbs-win.zip "./Elite Dangerous Binding Switcher"
+
+      - name: Create Automatic Release
+        uses: marvinpinto/action-automatic-releases@latest
+        with:
+          repo_token: "${{ secrets.PERSONAL_ACCESS_TOKEN }}"
+          prerelease: false
+          automatic_release_tag: "latest"
+          files: |
+            artifact/win/edbs-win.zip
+            artifact/linux/edbs-linux.tar.gz

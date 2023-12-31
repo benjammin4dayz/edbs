@@ -92,7 +92,9 @@ const swapBindings = (oldPath, newPath) => {
 
 const main = async () => {
   const activeBindings = getActiveBindingsPath(getConfigPath());
-  const storedBindings = getStoredBindingsPaths(process.cwd());
+  const storedBindings = getStoredBindingsPaths(
+    path.join(process.cwd(), "bindings")
+  );
 
   const promptUntilValid = () => {
     getUserChoice(storedBindings).then((choice) => {
