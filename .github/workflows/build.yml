@@ -41,11 +41,12 @@ jobs:
           tar -cvzf edbs-linux.tar.gz "linux/Elite Dangerous Binding Switcher"
           zip -r edbs-win.zip "win/Elite Dangerous Binding Switcher"
 
-      - name: Create Automatic Release (maybe?)
+      - name: Create Automatic Release
         uses: marvinpinto/action-automatic-releases@latest
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           prerelease: false
+          automatic_release_tag: "latest"
           files: |
             artifact/edbs-linux.tar.gz
             artifact/edbs-win.zip
