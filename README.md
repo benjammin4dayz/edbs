@@ -1,20 +1,31 @@
 # Elite Dangerous Binding Switcher
 
-A simple utility written in JavaScript that facilitates the process of switching between different custom binds files in Elite Dangerous.
+A simple utility written in JavaScript that facilitates the process of switching between different bindings in Elite Dangerous.
+
+## Installation
+
+Extract the contents of the archive anywhere you prefer.
 
 ## Usage
 
-1. Get a `.binds` file from https://edrefcard.info/
+1.  Get a `.binds` file from https://edrefcard.info/
 
-2. Rename the file to `anything you want_but-it-MUST-end-with.edbs`
+2.  Rename the file to `anything you want_but-it-MUST end-with.edbs`
 
-   - Note the file extension `.edbs`- this is important!
+    - Note the file extension `.edbs`- this is important!
 
-3. Place the `.edbs` file(s) next to the EDBS executable
+3.  Place the `.edbs` file(s) next to the EDBS executable
 
-4. Run the executable and select your bindings
+        - Elite Dangerous Binding Switcher
+          - bindings/
+            - Mouse and Keyboard.edbs
+            - Logitech Joystick.edbs
+          - edbs.exe
+          - README.md
 
-5. Launch Elite Dangerous and Fly Safe!
+4.  Run the executable and select your bindings
+
+5.  Launch Elite Dangerous and Fly Safe!
 
 ## Troubleshooting
 

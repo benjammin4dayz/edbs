@@ -2,10 +2,12 @@ name: NodeJS CI/CD
 
 on:
   push:
+    branches: 
+      - "main"
     tags:
       - "v*" # Push events to matching v*, i.e. v1.0, v20.15.10
   workflow_dispatch:
-
+    
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -48,7 +50,7 @@ jobs:
       - name: Create Automatic Release
         uses: marvinpinto/action-automatic-releases@latest
         with:
-          repo_token: "${{ secrets.PERSONAL_ACCESS_TOKEN_BECAUSE_THE_GITHUB_ONE_DOESNT_WORK_AND_I_HAVE_TO_REPLACE_THIS_IN_EVERY_REPO_WHEN_IT_GETS_RESET_IM_TOTALLY_SANE_AND_OK_WITH_THIS }}"
+          repo_token: "${{ secrets.PERSONAL_ACCESS_TOKEN }}"
           prerelease: false
           automatic_release_tag: "latest"
           files: |
