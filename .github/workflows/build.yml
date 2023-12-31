@@ -28,9 +28,9 @@ jobs:
       - name: Post-build
         run: |
           cd dist
-          mkdir -p "./edbs-linux/Elite Dangerous Binding Switcher/bindings"
+          mkdir -p "edbs-linux/Elite Dangerous Binding Switcher/bindings"
           chmod +x edbs-linux && mv ./edbs-linux "/edbs-linux/edbs"
-          mkdir -p "./edbs-win/Elite Dangerous Binding Switcher/bindings"
+          mkdir -p "edbs-win/Elite Dangerous Binding Switcher/bindings"
           mv edbs-win.exe "/edbs-win/edbs.exe"
           cp ./../README.md "/edbs-linux/Elite Dangerous Binding Switcher/README.md"
           cp ./../README.md "/edbs-win/Elite Dangerous Binding Switcher/README.md"
