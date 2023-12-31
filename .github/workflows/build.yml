@@ -4,18 +4,12 @@ on:
   push:
     branches: 
       - "main"
-    tags:
-      - "v*" # Push events to matching v*, i.e. v1.0, v20.15.10
   workflow_dispatch:
     
 jobs:
   build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
-      actions: write
-
+    
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -54,5 +48,5 @@ jobs:
           prerelease: false
           automatic_release_tag: "latest"
           files: |
-            artifact/linux/edbs-linux.tar.gz
             artifact/win/edbs-win.zip
+            artifact/linux/edbs-linux.tar.gz
