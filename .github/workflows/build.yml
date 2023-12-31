@@ -48,7 +48,7 @@ jobs:
       - name: Create Automatic Release
         uses: marvinpinto/action-automatic-releases@latest
         with:
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          repo_token: "${{ secrets.PERSONAL_ACCESS_TOKEN_BECAUSE_THE_GITHUB_ONE_DOESNT_WORK_AND_I_HAVE_TO_REPLACE_THIS_IN_EVERY_REPO_WHEN_IT_GETS_RESET_IM_TOTALLY_SANE_AND_OK_WITH_THIS }}"
           prerelease: false
           automatic_release_tag: "latest"
           files: |
