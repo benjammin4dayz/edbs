@@ -32,8 +32,8 @@ jobs:
           chmod +x ./dist/edbs-linux
           mv ./dist/edbs-linux "./artifact/linux/Elite Dangerous Binding Switcher edbs"
           mv ./dist/edbs-win.exe "./artifact/win/Elite Dangerous Binding Switcher edbs.exe"
-          cp ./../README.md "./artifact/linux/Elite Dangerous Binding Switcher/README.md"
-          cp ./../README.md "./artifact/win/Elite Dangerous Binding Switcher/README.md"
+          cp ./README.md "./artifact/linux/Elite Dangerous Binding Switcher/README.md"
+          cp ./README.md "./artifact/win/Elite Dangerous Binding Switcher/README.md"
 
       - name: Finalize
         run: |
