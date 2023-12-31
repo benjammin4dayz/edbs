@@ -1,0 +1,74 @@
+name: NodeJS CI/CD
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run build
+
+      - name: Post-build
+        run: |
+          cd dist
+          mkdir -p "/edbs-linux/Elite Dangerous Binding Switcher/bindings"
+          chmod +x edbs-linux && mv edbs-linux "/edbs-linux/edbs"
+          mkdir -p "/edbs-win/Elite Dangerous Binding Switcher/bindings"
+          mv edbs-win.exe "/edbs-win/edbs.exe"
+          cp ./../README.md "/edbs-linux/Elite Dangerous Binding Switcher/README.md"
+          cp ./../README.md "/edbs-win/Elite Dangerous Binding Switcher/README.md"
+
+      - name: Finalize
+        run: |
+          cd dist
+          tar -cvzf edbs-linux.tar.gz "edbs-linux/Elite Dangerous Binding Switcher"
+          zip -r edbs-win.zip "edbs-win/Elite Dangerous Binding Switcher"
+
+      - name: Create release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
+
+      - name: Upload Linux build
+        id: edbs_linux
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./dist/edbs-linux.tar.gz
+          asset_name: edbs-linux.tar.gz
+          asset_content_type: application/zip
+
+      - name: Upload Windows build
+        id: edbs_win
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./dist/edbs-win.zip
+          asset_name: edbs-win.zip
+          asset_content_type: application/zip
