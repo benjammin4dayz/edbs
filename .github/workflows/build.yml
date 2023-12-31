@@ -27,19 +27,19 @@ jobs:
 
       - name: Post-build
         run: |
-          cd dist
-          mkdir -p "edbs-linux/Elite Dangerous Binding Switcher/bindings"
-          chmod +x edbs-linux && mv ./edbs-linux "/edbs-linux/edbs"
-          mkdir -p "edbs-win/Elite Dangerous Binding Switcher/bindings"
-          mv edbs-win.exe "/edbs-win/edbs.exe"
-          cp ./../README.md "/edbs-linux/Elite Dangerous Binding Switcher/README.md"
-          cp ./../README.md "/edbs-win/Elite Dangerous Binding Switcher/README.md"
+          mkdir -p "artifact/linux/Elite Dangerous Binding Switcher/bindings"
+          mkdir -p "artifact/win/Elite Dangerous Binding Switcher/bindings"
+          chmod +x ./dist/edbs-linux
+          mv ./dist/edbs-linux "/artifact/linux/Elite Dangerous Binding Switcher edbs"
+          mv ./dist/edbs-win.exe "/artifact/win/Elite Dangerous Binding Switcher edbs.exe"
+          cp ./../README.md "/artifact/linux/Elite Dangerous Binding Switcher/README.md"
+          cp ./../README.md "/artifact/win/Elite Dangerous Binding Switcher/README.md"
 
       - name: Finalize
         run: |
-          cd dist
-          tar -cvzf edbs-linux.tar.gz "edbs-linux/Elite Dangerous Binding Switcher"
-          zip -r edbs-win.zip "edbs-win/Elite Dangerous Binding Switcher"
+          cd artifact
+          tar -cvzf edbs-linux.tar.gz "linux/Elite Dangerous Binding Switcher"
+          zip -r edbs-win.zip "win/Elite Dangerous Binding Switcher"
 
       - name: Create release
         id: create_release
@@ -59,7 +59,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./dist/edbs-linux.tar.gz
+          asset_path: ./artifact/edbs-linux.tar.gz
           asset_name: edbs-linux.tar.gz
           asset_content_type: application/zip
 
@@ -70,6 +70,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./dist/edbs-win.zip
+          asset_path: ./artifact/edbs-win.zip
           asset_name: edbs-win.zip
           asset_content_type: application/zip
