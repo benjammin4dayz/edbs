@@ -3,9 +3,10 @@ import {
   getConfigPath,
   getActiveBindsPath,
   getStoredBindsPaths,
+  swapBindings,
 } from "./ed.conf";
 import getUserChoice from "./interface";
-import { prettyPath, swapBindings } from "./util";
+import { prettyPath } from "./util";
 
 const main = async () => {
   const activeBinds = getActiveBindsPath(getConfigPath());
