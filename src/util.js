@@ -1,4 +1,3 @@
-import fs from "fs";
 import path from "path";
 
 const prettyPath = (basePath) => {
@@ -14,24 +13,4 @@ const shutdown = ({ msg, time, err }) => {
   });
 };
 
-const swapBindings = (oldPath, newPath) => {
-  try {
-    fs.copyFileSync(newPath, oldPath);
-    return true;
-  } catch (e) {
-    switch (e.code) {
-      case "ERR_INVALID_ARG_TYPE":
-        return console.error(
-          "Please enter a valid number corresponding to a binding."
-        );
-      default:
-        shutdown({
-          msg: `An error occured while trying to swap bindings: \n ${e}`,
-          time: 2000,
-          err: true,
-        });
-    }
-  }
-};
-
-export { prettyPath, shutdown, swapBindings };
+export { prettyPath, shutdown };

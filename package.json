@@ -1,8 +1,19 @@
 {
   "name": "edbs",
   "description": "Elite Dangerous Bind Switcher",
-  "version": "2.0.0",
+  "version": "2.1.0",
+  "author": "benjammin4dayz",
+  "license": "MIT",
   "main": "src/index.js",
+  "scripts": {
+    "build": "npm run lint && npm run bundle && npm run make:linux && npm run make:win",
+    "bundle": "esbuild ./src/index.js --platform=node --target=node10 --outfile=dist/bundle.js --bundle --minify",
+    "cleanup": "rm -rf ./dist && rm -rf ./bin",
+    "lint": "eslint ./src/**/*.js",
+    "make:linux": "nexe --target linux-x64-10.20.0 -i ./dist/bundle.js -o ./bin/edbs",
+    "make:win": "nexe --target windows-x64-10.0.0 -i ./dist/bundle.js -o ./bin/edbs.exe",
+    "test": "jest --forceExit"
+  },
   "devDependencies": {
     "@babel/core": "^7.23.7",
     "@babel/eslint-parser": "^7.23.3",
@@ -10,24 +21,7 @@
     "esbuild": "^0.19.11",
     "eslint": "^8.56.0",
     "jest": "^29.7.0",
-    "pkg": "^5.8.1",
+    "nexe": "^4.0.0-rc.3",
     "prettier": "^2.8.8"
-  },
-  "scripts": {
-    "build": "npm run eslint && npm run esbuild && npm run pkg",
-    "cleanup": "rm -rf ./dist && rm -rf ./bin",
-    "esbuild": "esbuild ./src/index.js --bundle --minify --platform=node --target=node16 --outfile=dist/bundle.js",
-    "eslint": "eslint ./src/**/*.js",
-    "pkg": "pkg ./dist/bundle.js --config ./package.json",
-    "test": "jest --forceExit"
-  },
-  "author": "benjammin4dayz",
-  "license": "MIT",
-  "pkg": {
-    "outputPath": "bin",
-    "targets": [
-      "latest-win-x64",
-      "latest-linux"
-    ]
   }
 }
