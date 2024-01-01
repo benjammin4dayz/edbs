@@ -1,4 +1,4 @@
-name: NodeJS CI/CD
+name: Build and Release
 
 on:
   push:
@@ -14,7 +14,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Setup Node.js
+      - name: Setup NodeJS
         uses: actions/setup-node@v3
         with:
           node-version: 18
@@ -25,21 +25,28 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Post-build
+      - name: Prepare artifact (Linux)
         run: |
-          mkdir -p "artifact/linux/Elite Dangerous Binding Switcher/bindings"
-          mkdir -p "artifact/win/Elite Dangerous Binding Switcher/bindings"
-          chmod +x ./dist/edbs-linux
-          mv ./dist/edbs-linux "./artifact/linux/Elite Dangerous Binding Switcher/edbs"
-          mv ./dist/edbs-win.exe "./artifact/win/Elite Dangerous Binding Switcher/edbs.exe"
+          mkdir -p "./artifact/linux/Elite Dangerous Binding Switcher/bindings/"
+          chmod +x ./bin/edbs-linux
+          mv ./bin/edbs-linux "./artifact/linux/Elite Dangerous Binding Switcher/"
           cp ./README.md "./artifact/linux/Elite Dangerous Binding Switcher/README.md"
-          cp ./README.md "./artifact/win/Elite Dangerous Binding Switcher/README.md"
 
-      - name: Finalize
+      - name: Prepare artifact (Windows)
         run: |
-          cd artifact/linux && tar -cvzf edbs-linux.tar.gz "./Elite Dangerous Binding Switcher"
-          cd ..
-          cd win && zip -r edbs-win.zip "./Elite Dangerous Binding Switcher"
+          mkdir -p "./artifact/win32/Elite Dangerous Binding Switcher/bindings/"
+          mv ./bin/edbs-win.exe "./artifact/win32/Elite Dangerous Binding Switcher/"
+          cp ./README.md "./artifact/win32/Elite Dangerous Binding Switcher/README.md"
+
+      - name: Compress artifact (Linux)
+        run: |
+          cd artifact/linux/
+          tar -cvzf edbs-linux.tar.gz "./Elite Dangerous Binding Switcher/"
+
+      - name: Compress artifact (Windows)
+        run: |
+          cd artifact/win32/
+          zip -r edbs-win.zip "./Elite Dangerous Binding Switcher/"
 
       - name: Create Automatic Release
         uses: marvinpinto/action-automatic-releases@latest
@@ -48,5 +55,5 @@ jobs:
           prerelease: false
           automatic_release_tag: "latest"
           files: |
-            artifact/win/edbs-win.zip
             artifact/linux/edbs-linux.tar.gz
+            artifact/win32/edbs-win.zip

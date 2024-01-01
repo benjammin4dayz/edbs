@@ -1,44 +1,34 @@
 # Elite Dangerous Binding Switcher
 
-EDBS is a simple utility written in JavaScript that facilitates the process of switching between different bindings in Elite Dangerous.
+A simple utility written in JavaScript that runs on Node. It's designed to facilitate the process of switching between different bindings in Elite Dangerous.
 
 ## Features
 
-- **Cross-Platform**: This _should_ work on Linux. I'll assume it does until someone reports otherwise.
-- **Templates**: Save your `.binds` files from [EDRefCard](https://edrefcard.info/) as an `.edbs` template and reference them later.
-- **Easy Switching**: Run the program, pick a number, and fly!
-- **Lightweight and Portable**: No dependencies or installation required.
+- **Simplicity**: Pick a number and fly! No learning curve required.
+- **Cross-Platform**: It _probably_ works on Linux!
+- **Lightweight & Portable**: No dependencies or installation.
+- **Library Management**: Save your favorite `.binds` from [EDRefCard](https://edrefcard.info/) and swap between them effortlessly.
 
 ## Usage
 
 1.  Get a `.binds` file from https://edrefcard.info/
 
-2.  Rename the file to `anything you want_but-it-MUST end-with.edbs`
+2.  Rename the file to `anything you want_but-it-MUST end-with.binds`
 
-    - Note the file extension `.edbs`- this is important!
+    - Note the file extension `.binds`- this is important!
 
-3.  Place the `.edbs` file(s) inside the `bindings/` folder next to the EDBS executable
+3.  Place the `.binds` file(s) inside the `bindings/` folder beside the executable
 
         - Elite Dangerous Binding Switcher
           - bindings/
-            - Mouse and Keyboard.edbs
-            - Gamepad.edbs
-            - Joystick.edbs
+            - Mouse and Keyboard.binds
+            - Gamepad.binds
+            - Joystick.binds
           - edbs.exe
           - README.md
 
 4.  Run the executable and select your bindings
 
+    - If your choices say **[N/A]**, go back to step 1.
+
 5.  Launch Elite Dangerous and Fly Safe!
-
-## Troubleshooting
-
-#### My selection list says [N/A]
-
-- No `.edbs` files were found.
-  - Ensure that the files exist within the `bindings/` folder
-  - Confirm that the extension of each file is `.edbs`
-
-## P.S. to Linux Users
-
-I don't know if this works, but I tried. Good luck!
